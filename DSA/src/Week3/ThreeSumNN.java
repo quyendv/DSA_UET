@@ -2,8 +2,6 @@ package Week3;
 
 import edu.princeton.cs.algs4.In;
 
-import java.util.Scanner;
-
 public class ThreeSumNN {
     public static void quickSort(int[] a, int lo, int hi) {
         if (lo < hi) {
