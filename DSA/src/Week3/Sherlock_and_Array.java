@@ -14,6 +14,19 @@ public class Sherlock_and_Array {
         return "NO";
     }
 
+    public static String check1(int[] a) {
+        int leftSum = 0, rightSum = 0;
+        for (int i = 0; i < a.length; i++) {
+            leftSum += i > 0 ? a[i - 1] : 0;
+            rightSum = 0;
+            for (int j = a.length - 1; j > i; j--) {
+                rightSum += a[j];
+            }
+            if (leftSum == rightSum) return "YES";
+        }
+        return "NO";
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
@@ -23,7 +36,7 @@ public class Sherlock_and_Array {
             for (int i = 0; i < n; i++) {
                 a[i] = sc.nextInt();
             }
-            System.out.println(check(a));
+            System.out.println(check1(a));
         }
     }
 }

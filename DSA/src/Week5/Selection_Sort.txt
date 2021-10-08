@@ -1,0 +1,3 @@
+Time Complexity: O(n^2) trong tất cả TH
+
+Với dữ liệu nhỏ (50 phần tử trong bài) thời gian chạy là 0ms
