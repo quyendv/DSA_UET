@@ -4,36 +4,53 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Simple_Text_Editor {
+
     public static void main(String[] args) {
+        MyTextEditor mte = new MyTextEditor();
+        StringBuilder output = new StringBuilder();
 
         Scanner sc = new Scanner(System.in);
-        int q = sc.nextInt();
+        int T = sc.nextInt();
 
-        StringBuilder s = new StringBuilder();
-        Stack<String> stk = new Stack<>();
-
-        while (q-- > 0) {
-            int n = sc.nextInt();
-            switch (n) {
-                case 1:
-                    String tmp = sc.next();
-                    stk.push(s.toString());
-                    s.append(tmp);
-                    break;
-                case 2:
-                    stk.push(s.toString());
-                    s.delete(s.length() - sc.nextInt(), s.length());
-                    break;
-                case 3:
-                    System.out.println(s.charAt(sc.nextInt() - 1));
-                    break;
-                case 4:
-                    if (!stk.empty()) s = new StringBuilder(stk.pop());
-                    break;
-                default:
-                    break;
+        while (T-- > 0) {
+            switch (sc.nextInt()) {
+                case 1 -> mte.insert(sc.next());
+                case 2 -> mte.delete(sc.nextInt());
+                case 3 -> {
+                    output.append(mte.getAtIndex(sc.nextInt()));
+                    output.append('\n');
+                }
+                case 4 -> mte.undo();
             }
-//            System.out.println(q + ": " + s.toString());
+        }
+        System.out.println(output);
+    }
+
+    static class MyTextEditor {
+        StringBuilder S = new StringBuilder();
+        Stack<Object> historyStk = new Stack<Object>();
+
+        public void insert(String str) {
+            historyStk.push(str.length());
+            S.append(str);
+        }
+
+        public void delete(int k) {
+            historyStk.push(S.substring(S.length() - k));
+            S.delete(S.length() - k, S.length());
+        }
+
+        public char getAtIndex(int idx) {
+            return S.charAt(idx - 1);
+        }
+
+        public void undo() {
+            Object tmp = historyStk.pop();
+            if (tmp instanceof Integer) {
+                S.delete(S.length() - (Integer) tmp, S.length());
+            } else {
+                S.append((String)tmp);
+            }
         }
     }
 }
