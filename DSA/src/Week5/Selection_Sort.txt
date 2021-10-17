@@ -1,3 +1,11 @@
-Time Complexity: O(n^2) trong tất cả TH
+SelectionSort: Duyệt từ đầu tới cuối mảng, mỗi lần duyệt so sánh N - i - 1 lần và 1 lần đổi chỗ
 
+i = 0: so sánh với các phần tử từ i = 1 -> N - 1         => N - 1 phép so sánh
+i = 1: so sánh với các phần tử từ i = 2 -> N - 1         => N - 2 phép so sánh
+.....
+
+=> SelectionSort luôn tốn ~ N^2 / 2 bước so sánh và đổi chỗ trong tất cả mọi dạng input: random, nearlySorted, reversed,
+fewUnique -> không có best case, worst case
+
+=> Time Complexity: O(n^2) trong tất cả TH
 Với dữ liệu nhỏ (50 phần tử trong bài) thời gian chạy là 0ms
