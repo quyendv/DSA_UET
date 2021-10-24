@@ -1,0 +1,24 @@
+- SelectionSort:
+    + Ta vẫn có thể cài đặt bằng LinkedList tương tự như với mảng, vẫn duyệt LinkedList bình thường và so sánh, swap data trên mỗi Node
+
+    + Tuy nhiên em nghĩ sẽ không hiệu quả bằng sử dụng mảng vì sẽ tốn bộ nhớ hơn do chi phí của inner class (chi phí cho data, cho Node
+    tham chiếu, Object overhead, inner class extra overhead),
+
+- InsertionSort:
+    + Ta không thể cài đặt tương tự như mảng vì không thể trực tiếp duyệt ngược về trước trên danh sách liên kết đơn
+        --> cài đặt sẽ phức tạp hơn
+        --> nếu cài đặt bằng danh sách liên kết đôi thì có thể làm tương tự như mảng nhưng sẽ tốn bộ nhớ hơn rất nhiều -> không hiệu quả
+
+    + Chi phí bộ nhớ cũng tốn kém hơn <tương tự phần SelectionSort>
+
+    + Em có tham khảo cách cài đặt InsertionSort bằng danh sách liên kết đơn tại:
+
+        https://www.geeksforgeeks.org/insertion-sort-for-singly-linked-list/
+        <em không biết đây có phải là cài đặt chuẩn bằng danh sách liên kết không>
+
+    thì thấy rằng cần 1 Node sorted làm head cho danh sách chứa các phần tử đã được sắp xếp (cách cài đặt cần thêm 1 danh sách mới).
+    Giả sử ta cần sắp xếp dãy 1, 2, 3, 4, 5, 8, 7, 6. Khi duyệt đến Node có giá trị 5 thì danh sách sắp xếp sẽ là 1-2-3-4-null.
+    Và mỗi lần duyệt sẽ so sánh Node đang xét(5) với Node sorted trước (Node có giá trị 1 trong Vd trên)
+    ==> Trường hợp dãy đã sắp xếp xuôi sẽ là worst-case và sắp xếp ngược sẽ là best-case
+
+** Đánh giá: Em nghĩ cài đặt 2 thuật toán trên bằng Array vẫn sẽ tốt hơn và không nên cài đặt bằng LinkedList
