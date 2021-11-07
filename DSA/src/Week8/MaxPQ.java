@@ -1,6 +1,6 @@
 package Week8;
 
-public class MaxPQ<Key extends Comparable<Key>> {
+public class MaxPQ<Key extends Comparable<Key>> { // generic class
     private Key[] pq;
     private int n;
 
