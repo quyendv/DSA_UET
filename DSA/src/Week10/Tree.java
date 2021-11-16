@@ -74,8 +74,26 @@ public class Tree {
         Node target = find(root, key);
         if (target == null) return; // !contains(key)
 
-        if (target.parent.children.size() == 1) target.parent.children = null;
-        else target.parent.children.remove(target);
+        // Sai: vì chưa xét liên kết con.
+        // if (target.parent.children.size() == 1) target.parent.children = null;
+        // else target.parent.children.remove(target);
+
+        // Delete đúng:
+        if (target.children == null) { // Node lá: k có children
+            if (target.parent.children.size() == 1) target.parent.children = null; // nếu parent chỉ có target là con -> null
+            else target.parent.children.remove(target);
+        } else {
+            // gán data:
+            target.data = target.children.get(0).data;
+
+            // gán children:
+            if (target.children.size() == 1) target.children = target.children.get(0).children;
+            else {
+                List<Node> temp = target.children.get(0).children;
+                target.children.remove(0);
+                target.children.addAll(0, temp);
+            }
+        }
     }
 
     static boolean isBinaryTree(Node root) {
@@ -95,9 +113,14 @@ public class Tree {
     }
 
     static boolean isMaxBinaryHeap(Node root) {
-        return false;
+        if (!isBinaryTree(root)) return false;
+        return checkMaxBinaryHeap(root);
     }
 
+    /**
+     * Là độ sâu của Node xa nhất
+     * Depth(Node x) = số lượng ancestors của x
+     */
     static int height(Node root) {
         if (root == null) return -1;            // Node null height = -1
         if (root.children == null) return 0;    // Node leaf height = 0;
@@ -182,8 +205,8 @@ public class Tree {
     }
 
     /* *****************************
-    *   HelperMethod.
-    ***************************** */
+     *   HelperMethod.
+     ***************************** */
     public Tree(int data) {
         root = new Node(data, null, null);
     }
@@ -202,5 +225,16 @@ public class Tree {
         if (x.children.size() <= 1) return true; // k rõ nhánh left hay right?
 
         return checkBST(x.children.get(0), min, x.data) && checkBST(x.children.get(1), x.data, max);
+    }
+
+    private static boolean checkMaxBinaryHeap(Node root) {
+        if (root == null) return true;
+        if (root.parent != null && root.data >= root.parent.data) return false;
+        if (root.children == null) return true;
+
+        for (Node node : root.children) {
+            if (!checkMaxBinaryHeap(node)) return false;
+        }
+        return true;
     }
 }
