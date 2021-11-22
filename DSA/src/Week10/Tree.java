@@ -162,7 +162,7 @@ public class Tree {
     static public void postorder(Node root) {
         if (root != null) {
             if (root.children != null) {
-                for (int i = root.children.size() - 1; i >= 0; i--) {
+                for (int i = 0; i < root.children.size(); i++) {
                     postorder(root.children.get(i));
                 }
             }
